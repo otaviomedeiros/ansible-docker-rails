@@ -1,0 +1,22 @@
+---
+- name: install dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - python-pip
+
+- name: install docker-py
+  pip: name=docker-py state=present
+
+- name: pull rails image
+  docker:
+    image: rails:4.2.6
+    state: present
+
+- shell: id -u
+  register: id_u
+
+- shell: id -g
+  register: id_g
+
+- name: bootstrap new rails app
+  command: docker run -it --rm --user "{{ id_u.stdout }}:{{ id_g.stdout }}" -v "$PWD":/usr/src/app -w /usr/src/app rails:4.2.6 rails new --skip-bundle webapp
