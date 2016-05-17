@@ -1,0 +1,7 @@
+app:
+  build: .
+  container_name: rails-app
+  volumes:
+    - .:/app
+  ports:
+    - '3000:3000'
