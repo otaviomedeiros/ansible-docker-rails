@@ -2,7 +2,7 @@
 - hosts: all
   become: yes
   roles:
-    - setup
-    - docker
-    - docker-compose
-    - bootstrap-new-rails-app
+    - { role: setup, tags: ['setup'] }
+    - { role: docker, tags: ['docker'] }
+    - { role: docker-compose, tags: ['docker'] }
+    - { role: bootstrap-new-rails-app, tags: ['new-rails-app'] }
