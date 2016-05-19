@@ -4,7 +4,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "ansible/playbook.yml"
+    ansible.playbook = "ansible/dev-playbook.yml"
   end
 
   config.vm.provider :virtualbox do |vb|
