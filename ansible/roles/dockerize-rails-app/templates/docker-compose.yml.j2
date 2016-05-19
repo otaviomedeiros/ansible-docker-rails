@@ -6,6 +6,14 @@ postgres:
   volumes:
     - ~/.docker-volumes/rails-app/postgresql/data:/var/lib/postgresql/data
 
+redis:
+  image: redis:3.2.0
+  container_name: redis
+  ports:
+    - '6379:6379'
+  volumes:
+    - ~/.docker-volumes/rails-app/redis/data:/var/lib/redis/data
+
 app:
   build: .
   container_name: rails-app
