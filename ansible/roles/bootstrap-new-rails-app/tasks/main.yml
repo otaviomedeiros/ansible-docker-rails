@@ -24,6 +24,11 @@
 - name: replace sqlite3 by postgres in Gemfile
   lineinfile: dest=/vagrant/webapp/Gemfile regexp="^gem 'sqlite3'" line="gem 'pg'"
 
+- name: add sidekiq gem to Gemfile
+  blockinfile:
+    dest: /vagrant/webapp/Gemfile
+    content: "gem 'sidekiq'"
+
 - name: copy database.yml file
   copy: src=database.yml dest=/vagrant/webapp/config/database.yml
 
