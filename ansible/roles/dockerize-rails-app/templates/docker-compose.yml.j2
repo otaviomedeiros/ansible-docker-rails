@@ -14,6 +14,18 @@ redis:
   volumes:
     - ~/.docker-volumes/rails-app/redis/data:/var/lib/redis/data
 
+sidekiq:
+  build: .
+  container_name: sidekiq
+  volumes:
+    - .:/app
+  links:
+    - redis
+    - postgres
+  env_file:
+    - .rails-app.env
+  command: bundle exec sidekiq -C config/sidekiq.yml
+
 app:
   build: .
   container_name: rails-app
@@ -21,6 +33,7 @@ app:
     - .:/app
   links:
     - postgres
+    - sidekiq
   ports:
     - '3000:3000'
   env_file:
