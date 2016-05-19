@@ -1,7 +1,19 @@
+postgres:
+  image: postgres:9.5.3
+  container_name: postgres
+  ports:
+    - '5432:5432'
+  volumes:
+    - ~/.docker-volumes/rails-app/postgresql/data:/var/lib/postgresql/data
+
 app:
   build: .
   container_name: rails-app
   volumes:
     - .:/app
+  links:
+    - postgres
   ports:
     - '3000:3000'
+  env_file:
+    - .rails-app.env
