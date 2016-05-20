@@ -36,6 +36,14 @@
 - name: add redis-rails gem to Gemfile
   lineinfile: dest=/vagrant/webapp/Gemfile line="gem 'redis-rails', '~> 4.0.0'" insertafter=EOF
 
+- name: add rspec-rails gem to Gemfile
+  blockinfile:
+    dest: /vagrant/webapp/Gemfile
+    block: |
+      group :development, :test do
+        gem 'rspec-rails', '~> 3.4'
+      end
+
 - name: copy sidekiq initializer
   copy: src=sidekiq.rb dest=/vagrant/webapp/config/initializers/sidekiq.rb
 
