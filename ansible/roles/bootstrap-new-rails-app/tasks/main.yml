@@ -21,13 +21,23 @@
 - name: bootstrap new rails app
   shell: chdir=/vagrant/ docker run -it --rm --user "{{ id_u.stdout }}:{{ id_g.stdout }}" -v "$PWD":/usr/src/app -w /usr/src/app rails:4.2.6 rails new --skip-bundle webapp
 
+- name: configure redis in application.rb
+  lineinfile:
+    dest: /vagrant/webapp/config/application.rb
+    insertafter: "Rails::Application"
+    line: "config.cache_store = :redis_store, ENV['CACHE_URL']"
+
 - name: replace sqlite3 by postgres in Gemfile
   lineinfile: dest=/vagrant/webapp/Gemfile regexp="^gem 'sqlite3'" line="gem 'pg'"
 
 - name: add sidekiq gem to Gemfile
-  blockinfile:
-    dest: /vagrant/webapp/Gemfile
-    content: "gem 'sidekiq'"
+  lineinfile: dest=/vagrant/webapp/Gemfile line="gem 'sidekiq'" insertafter=EOF
+
+- name: add redis-rails gem to Gemfile
+  lineinfile: dest=/vagrant/webapp/Gemfile line="gem 'redis-rails', '~> 4.0.0'" insertafter=EOF
+
+- name: copy sidekiq initializer
+  copy: src=sidekiq.rb dest=/vagrant/webapp/config/initializers/sidekiq.rb
 
 - name: copy database.yml file
   copy: src=database.yml dest=/vagrant/webapp/config/database.yml
