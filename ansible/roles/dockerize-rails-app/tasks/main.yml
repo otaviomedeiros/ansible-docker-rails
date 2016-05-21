@@ -4,3 +4,6 @@
 
 - name: move docker-compose.yml to remote host
   template: src=docker-compose.yml.j2 dest=/vagrant/webapp/docker-compose.yml
+
+- name: install rspec
+  command: docker-compose run --no-deps app rails g rspec:install chdir=/vagrant/webapp
