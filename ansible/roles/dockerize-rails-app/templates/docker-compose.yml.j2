@@ -6,7 +6,7 @@ nginx:
   volumes_from:
     - app
   ports:
-    - '80:80'
+    - '8080:8080'
 
 postgres:
   build: /vagrant/postgres/
@@ -46,8 +46,6 @@ app:
     - redis
     - postgres
     - sidekiq
-  ports:
-    - '3000:3000'
   env_file:
     - .rails-app.env
   command: bundle exec puma -C config/puma.rb
