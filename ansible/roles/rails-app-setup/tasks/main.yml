@@ -17,6 +17,9 @@
 - name: add pry to Gemfile
   lineinfile: dest=/vagrant/webapp/Gemfile line="gem 'pry-rails', :group => :development" insertafter=EOF
 
+- name: add puma to Gemfile
+  lineinfile: dest=/vagrant/webapp/Gemfile line="gem 'puma'" insertafter=EOF
+
 - name: add rspec-rails gem to Gemfile
   blockinfile:
     dest: /vagrant/webapp/Gemfile
@@ -27,6 +30,9 @@
 
 - name: copy sidekiq initializer
   copy: src=sidekiq.rb dest=/vagrant/webapp/config/initializers/sidekiq.rb
+
+- name: copy puma config to app
+  copy: src=puma.rb dest=/vagrant/webapp/config/puma.rb
 
 - name: copy database.yml file
   copy: src=database.yml dest=/vagrant/webapp/config/database.yml
