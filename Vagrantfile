@@ -7,7 +7,11 @@ Vagrant.configure(2) do |config|
     ansible.playbook = "ansible/dev-playbook.yml"
   end
 
+  config.vm.synced_folder ".", "/vagrant", type: "nfs"
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", "2048"]
+
+    # Sync time every 5 seconds so code reloads properly
+    vb.customize ["guestproperty", "set", :id, "--timesync-threshold", 5000]
   end
 end
