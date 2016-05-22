@@ -7,3 +7,4 @@
     - { role: docker-compose, tags: ['docker'] }
     - { role: bootstrap-new-rails-app, tags: ['new-rails-app'] }
     - { role: dockerize-rails-app, tags: ['new-rails-app', 'dockerize-rails-app'] }
+    - { role: rails-app-setup, tags: ['new-rails-app', 'rails-app-setup'] }

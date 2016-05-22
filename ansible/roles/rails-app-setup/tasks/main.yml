@@ -1,0 +1,32 @@
+---
+- name: configure redis in application.rb
+  lineinfile:
+    dest: /vagrant/webapp/config/application.rb
+    insertafter: "Rails::Application"
+    line: "config.cache_store = :redis_store, ENV['CACHE_URL']"
+
+- name: replace sqlite3 by postgres in Gemfile
+  lineinfile: dest=/vagrant/webapp/Gemfile regexp="^gem 'sqlite3'" line="gem 'pg'"
+
+- name: add sidekiq gem to Gemfile
+  lineinfile: dest=/vagrant/webapp/Gemfile line="gem 'sidekiq'" insertafter=EOF
+
+- name: add redis-rails gem to Gemfile
+  lineinfile: dest=/vagrant/webapp/Gemfile line="gem 'redis-rails', '~> 4.0.0'" insertafter=EOF
+
+- name: add rspec-rails gem to Gemfile
+  blockinfile:
+    dest: /vagrant/webapp/Gemfile
+    block: |
+      group :development, :test do
+        gem 'rspec-rails', '~> 3.4'
+      end
+
+- name: copy sidekiq initializer
+  copy: src=sidekiq.rb dest=/vagrant/webapp/config/initializers/sidekiq.rb
+
+- name: copy database.yml file
+  copy: src=database.yml dest=/vagrant/webapp/config/database.yml
+
+- name: copy dot env file
+  copy: src=.rails-app.env dest=/vagrant/webapp/.rails-app.env
