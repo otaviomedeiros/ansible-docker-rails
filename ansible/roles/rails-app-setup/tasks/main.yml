@@ -14,6 +14,9 @@
 - name: add redis-rails gem to Gemfile
   lineinfile: dest=/vagrant/webapp/Gemfile line="gem 'redis-rails', '~> 4.0.0'" insertafter=EOF
 
+- name: add factory girl gem to Gemfile
+  lineinfile: dest=/vagrant/webapp/Gemfile line="gem 'factory_girl_rails'" insertafter=EOF
+
 - name: add pry to Gemfile
   lineinfile: dest=/vagrant/webapp/Gemfile line="gem 'pry-rails', :group => :development" insertafter=EOF
 
