@@ -1,3 +1,13 @@
+nginx:
+  build: /vagrant/nginx
+  container_name: nginx
+  volumes:
+    - /var/log/nginx:/var/log/nginx
+  volumes_from:
+    - app
+  ports:
+    - '80:80'
+
 postgres:
   build: /vagrant/postgres/
   container_name: postgres
@@ -31,6 +41,7 @@ app:
   container_name: rails-app
   volumes:
     - .:/app
+    - /var/run/app-socket:/var/run/app-socket
   links:
     - redis
     - postgres
