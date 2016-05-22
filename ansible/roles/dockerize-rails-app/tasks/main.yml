@@ -5,9 +5,6 @@
 - name: move docker-compose.yml to remote host
   template: src=docker-compose.yml.j2 dest=/vagrant/webapp/docker-compose.yml
 
-- name: copy dot env file
-  copy: src=.rails-app.env dest=/vagrant/webapp/.rails-app.env
-
 - name: building app images
   command: docker-compose build chdir=/vagrant/webapp
 

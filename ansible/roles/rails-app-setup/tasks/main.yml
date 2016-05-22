@@ -27,3 +27,6 @@
 
 - name: copy database.yml file
   copy: src=database.yml dest=/vagrant/webapp/config/database.yml
+
+- name: copy dot env file
+  copy: src=.rails-app.env dest=/vagrant/webapp/.rails-app.env
