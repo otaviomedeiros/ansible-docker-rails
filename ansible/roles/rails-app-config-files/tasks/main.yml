@@ -8,17 +8,17 @@
 - name: copy sidekiq initializer
   copy: src=sidekiq.rb dest={{ vm_shared_folder }}/{{ app_folder }}/config/initializers/sidekiq.rb
 
-- name: copy puma config to app
-  copy: src=puma.rb dest={{ vm_shared_folder }}/{{ app_folder }}/config/puma.rb
-
-- name: copy database.yml file
-  copy: src=database.yml dest={{ vm_shared_folder }}/{{ app_folder }}/config/database.yml
-
-- name: copy dot env file
-  copy: src=.rails-app.env dest={{ vm_shared_folder }}/{{ app_folder }}/.rails-app.env
-
 - name: require sidekiq web to routes
   lineinfile: dest={{ vm_shared_folder }}/{{ app_folder }}/config/routes.rb line="require 'sidekiq/web'" insertbefore=BOF
 
 - name: mount sidekiq web in rails app
   lineinfile: dest={{ vm_shared_folder }}/{{ app_folder }}/config/routes.rb line="mount Sidekiq::Web, :at => '/sidekiq'" insertafter="Rails.application.routes.draw do"
+
+- name: copy puma config to app
+  template: src=puma.rb.j2 dest={{ vm_shared_folder }}/{{ app_folder }}/config/puma.rb
+
+- name: copy database.yml file
+  copy: src=database.yml dest={{ vm_shared_folder }}/{{ app_folder }}/config/database.yml
+
+- name: copy dot env file
+  template: src=.rails-app.env.j2 dest={{ vm_shared_folder }}/{{ app_folder }}/.rails-app.env

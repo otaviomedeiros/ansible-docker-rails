@@ -3,7 +3,7 @@ threads 8, 10
 
 preload_app!
 
-bind 'unix:///var/run/app-socket/rails-app.sock'
+bind '{{ app_server_socket }}'
 
 on_worker_boot do
   ActiveSupport.on_load(:active_record) do

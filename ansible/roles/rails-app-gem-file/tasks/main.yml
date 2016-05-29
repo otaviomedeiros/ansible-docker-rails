@@ -1,0 +1,19 @@
+---
+- name: replace sqlite3 by postgres in Gemfile
+  lineinfile: dest={{ vm_shared_folder }}/{{ app_folder }}/Gemfile regexp="^gem 'sqlite3'" line="gem 'pg'"
+
+- name: add gems to Gemfile
+  blockinfile:
+    dest: "{{ vm_shared_folder }}/{{ app_folder }}/Gemfile"
+    block: |
+      group :development, :test do
+      gem 'rspec-rails', '~> 3.4'
+      end
+
+      gem 'sinatra', require: false
+      gem 'slim'
+      gem 'puma'
+      gem 'pry-rails', :group => :development
+      gem 'factory_girl_rails'
+      gem 'redis-rails', '~> 4.0.0'
+      gem 'sidekiq'
