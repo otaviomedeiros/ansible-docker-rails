@@ -1,2 +1,3 @@
 ---
 vm_user: vagrant
+vm_shared_folder: /vagrant

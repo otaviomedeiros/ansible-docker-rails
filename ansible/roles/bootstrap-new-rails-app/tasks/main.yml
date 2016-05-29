@@ -9,7 +9,7 @@
 
 - name: pull rails image
   docker:
-    image: rails:4.2.6
+    image: rails:{{ rails_version }}
     state: present
 
 - shell: id -u
@@ -19,4 +19,4 @@
   register: id_g
 
 - name: bootstrap new rails app
-  shell: chdir=/vagrant/ docker run -it --rm --user "{{ id_u.stdout }}:{{ id_g.stdout }}" -v "$PWD":/usr/src/app -w /usr/src/app rails:4.2.6 rails new --skip-bundle webapp
+  shell: chdir={{ vm_shared_folder }}/ docker run -it --rm --user "{{ id_u.stdout }}:{{ id_g.stdout }}" -v "$PWD":/usr/src/app -w /usr/src/app rails:{{ rails_version }} rails new --skip-bundle {{ app_folder }}
