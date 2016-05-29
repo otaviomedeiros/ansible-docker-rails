@@ -8,7 +8,6 @@ Vagrant.configure(2) do |config|
     ansible.playbook = "ansible/dev-playbook.yml"
   end
 
-  config.vm.synced_folder ".", "/vagrant", type: "nfs"
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", "2048"]
 
