@@ -3,4 +3,6 @@ db_name: railsappdb
 db_user: railsappuser
 db_password: railsapppassword
 
+app_server_socket_folder: /var/run/app-socket
 app_server_socket: unix:///var/run/app-socket/rails-app.sock
+image_app_folder: /app

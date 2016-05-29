@@ -4,7 +4,7 @@ MAINTAINER Otavio Medeiros <otaviorm@gmail.com>
 RUN apt-get update && apt-get install -qq -y build-essential patch nodejs libpq-dev postgresql-client-9.4 --fix-missing --no-install-recommends
 RUN apt-get install libsqlite3-dev -y
 
-ENV INSTALL_PATH /app
+ENV INSTALL_PATH {{ image_app_folder }}
 RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
@@ -14,6 +14,6 @@ RUN bundle install
 
 COPY . .
 
-RUN mkdir /var/run/app-socket
+RUN mkdir {{ app_server_socket_folder }}
 
 CMD bundle exec puma -C config/puma.rb

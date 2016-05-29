@@ -1,12 +1,6 @@
 ---
 - name: move Dockerfile to remote host
-  template: src=Dockerfile.j2 dest=/vagrant/webapp/Dockerfile
+  template: src=Dockerfile.j2 dest={{ vm_shared_folder }}/{{ app_folder }}/Dockerfile
 
 - name: move docker-compose.yml to remote host
-  template: src=docker-compose.yml.j2 dest=/vagrant/webapp/docker-compose.yml
-
-- name: building app images
-  command: docker-compose build chdir=/vagrant/webapp
-
-- name: install rspec
-  command: docker-compose run --no-deps app rails g rspec:install chdir=/vagrant/webapp
+  template: src=docker-compose.yml.j2 dest={{ vm_shared_folder }}/{{ app_folder }}/docker-compose.yml

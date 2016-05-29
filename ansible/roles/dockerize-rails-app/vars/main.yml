@@ -1,0 +1,4 @@
+---
+redis_data_folder: /var/lib/redis/data
+postgres_data_folder: /var/lib/postgresql/data
+nginx_log_folder: /var/log/nginx

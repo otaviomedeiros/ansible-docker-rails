@@ -1,20 +1,20 @@
 nginx:
-  build: /vagrant/nginx
+  build: ../nginx
   container_name: nginx
   volumes:
-    - /var/log/nginx:/var/log/nginx
+    - {{ nginx_log_folder }}:{{ nginx_log_folder }}
   volumes_from:
     - app
   ports:
     - '8080:8080'
 
 postgres:
-  build: /vagrant/postgres/
+  build: ../postgres
   container_name: postgres
   ports:
     - '5432:5432'
   volumes:
-    - ~/.docker-volumes/rails-app/postgresql/data:/var/lib/postgresql/data
+    - ~/.docker-volumes/rails-app/postgresql/data:{{ postgres_data_folder }}
 
 redis:
   image: redis:3.2.0
@@ -22,13 +22,13 @@ redis:
   ports:
     - '6379:6379'
   volumes:
-    - ~/.docker-volumes/rails-app/redis/data:/var/lib/redis/data
+    - ~/.docker-volumes/rails-app/redis/data:{{ redis_data_folder }}
 
 sidekiq:
   build: .
   container_name: sidekiq
   volumes:
-    - .:/app
+    - .:{{ image_app_folder }}
   links:
     - redis
     - postgres
@@ -38,10 +38,10 @@ sidekiq:
 
 app:
   build: .
-  container_name: rails-app
+  container_name: app
   volumes:
-    - .:/app
-    - /var/run/app-socket:/var/run/app-socket
+    - .:{{ image_app_folder }}
+    - {{ app_server_socket_folder }}:{{ app_server_socket_folder }}
   links:
     - redis
     - postgres
