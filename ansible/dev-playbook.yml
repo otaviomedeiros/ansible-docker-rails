@@ -6,6 +6,7 @@
     - { role: docker, tags: ['docker'] }
     - { role: docker-compose, tags: ['docker'] }
     - { role: bootstrap-new-rails-app, tags: ['new-rails-app'] }
+    - { role: webserver, tags: ['webserver'] }
     - { role: rails-app-config-files, tags: ['setup-rails-app'] }
     - { role: rails-app-gem-file, tags: ['setup-rails-app'] }
     - { role: dockerize-rails-app, tags: ['dockerize-rails-app'] }

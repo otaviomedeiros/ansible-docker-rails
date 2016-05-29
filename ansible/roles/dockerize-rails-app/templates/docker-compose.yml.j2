@@ -1,5 +1,5 @@
 nginx:
-  build: ../nginx
+  build: ./docker-images/nginx
   container_name: nginx
   volumes:
     - {{ nginx_log_folder }}:{{ nginx_log_folder }}
@@ -9,7 +9,7 @@ nginx:
     - '8080:8080'
 
 postgres:
-  build: ../postgres
+  build: postgres:9.5.3
   container_name: postgres
   ports:
     - '5432:5432'
