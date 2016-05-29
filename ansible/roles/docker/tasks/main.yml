@@ -1,11 +1,11 @@
 ---
 - name: apt-get update
   apt: update_cache=yes
-  
+
 - name: Update package information, ensure that APT works with the https method, and that CA certificates are installed.
   apt: name={{ item }}
   with_items:
-   - apt-transport-https 
+   - apt-transport-https
    - ca-certificates
 
 - name: Add the new GPG key
@@ -18,7 +18,7 @@
   apt: update_cache=yes
 
 - name: Verify that APT is pulling from the right repository
-  shell: apt-cache policy docker-engine  
+  shell: apt-cache policy docker-engine
 
 - shell: uname -r
   register: uname
@@ -39,4 +39,4 @@
   apt: name=docker-engine
 
 - name: Create the docker group and add vagrant user
-  shell: usermod -aG docker vagrant
+  shell: usermod -aG docker {{ vm_user }}
