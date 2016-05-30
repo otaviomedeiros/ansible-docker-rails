@@ -12,14 +12,8 @@
     image: rails:{{ rails_version }}
     state: present
 
-- shell: id -u
-  register: id_u
-
-- shell: id -g
-  register: id_g
-
 - name: bootstrap new rails app
-  shell: chdir={{ vm_shared_folder }}/ docker run -it --rm --user "{{ id_u.stdout }}:{{ id_g.stdout }}" -v "$PWD":/usr/src/app -w /usr/src/app rails:{{ rails_version }} rails new --skip-bundle {{ app_folder }}
+  shell: chdir={{ vm_shared_folder }} docker run -i --rm --user "$(id -u):$(id -g)" -v "$PWD":/usr/src/app -w /usr/src/app rails:{{ rails_version }} rails new --skip-bundle {{ app_folder }}
 
 - name: create custom images folder
   file: path={{ vm_shared_folder }}/{{ app_folder }}/docker-images state=directory
