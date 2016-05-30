@@ -9,7 +9,7 @@ nginx:
     - '8080:8080'
 
 postgres:
-  build: postgres:9.5.3
+  image: postgres:9.5.3
   container_name: postgres
   ports:
     - '5432:5432'

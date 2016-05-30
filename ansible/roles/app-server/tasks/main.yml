@@ -1,0 +1,6 @@
+---
+- name: add puma to Gemfile
+  lineinfile: dest={{ vm_shared_folder }}/{{ app_folder }}/Gemfile line="gem 'puma'" insertafter=EOF
+
+- name: copy puma config to app
+  template: src=puma.rb.j2 dest={{ vm_shared_folder }}/{{ app_folder }}/config/puma.rb

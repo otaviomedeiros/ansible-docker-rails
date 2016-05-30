@@ -5,8 +5,11 @@
     - { role: setup, tags: ['setup'] }
     - { role: docker, tags: ['docker'] }
     - { role: docker-compose, tags: ['docker'] }
-    - { role: bootstrap-new-rails-app, tags: ['new-rails-app'] }
-    - { role: webserver, tags: ['webserver'] }
-    - { role: rails-app-config-files, tags: ['setup-rails-app'] }
-    - { role: rails-app-gem-file, tags: ['setup-rails-app'] }
-    - { role: dockerize-rails-app, tags: ['dockerize-rails-app'] }
+
+    - { role: bootstrap-new-rails-app, tags: ['new-rails-app', 'bootstrap'] }
+    - { role: webserver, tags: ['webserver', 'bootstrap'] }
+    - { role: app-server, tags: ['app-server', 'bootstrap'] }
+    - { role: database, tags: ['database', 'bootstrap'] }
+    - { role: cache-store, tags: ['cache-store', 'bootstrap'] }
+    - { role: background-job, tags: ['background-job', 'bootstrap'] }
+    - { role: dockerize-rails-app, tags: ['dockerize', 'bootstrap'] }

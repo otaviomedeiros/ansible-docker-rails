@@ -1,0 +1,9 @@
+---
+- name: configure redis in application.rb
+  lineinfile:
+    dest: "{{ vm_shared_folder }}/{{ app_folder }}/config/application.rb"
+    insertafter: "Rails::Application"
+    line: "config.cache_store = :redis_store, ENV['CACHE_URL']"
+
+- name: add redis-rails to Gemfile
+  lineinfile: dest={{ vm_shared_folder }}/{{ app_folder }}/Gemfile line="gem 'redis-rails', '~> 4.0.0'" insertafter=EOF

@@ -1,0 +1,6 @@
+---
+- name: copy database.yml file
+  copy: src=database.yml dest={{ vm_shared_folder }}/{{ app_folder }}/config/database.yml
+
+- name: replace sqlite3 by postgres in Gemfile
+  lineinfile: dest={{ vm_shared_folder }}/{{ app_folder }}/Gemfile regexp="^gem 'sqlite3'" line="gem 'pg'"

@@ -1,0 +1,17 @@
+---
+- name: copy sidekiq initializer
+  copy: src=sidekiq.rb dest={{ vm_shared_folder }}/{{ app_folder }}/config/initializers/sidekiq.rb
+
+- name: require sidekiq web to routes
+  lineinfile: dest={{ vm_shared_folder }}/{{ app_folder }}/config/routes.rb line="require 'sidekiq/web'" insertbefore=BOF
+
+- name: mount sidekiq web in rails app
+  lineinfile: dest={{ vm_shared_folder }}/{{ app_folder }}/config/routes.rb line="mount Sidekiq::Web, :at => '/sidekiq'" insertafter="Rails.application.routes.draw do"
+
+- name: add gems to Gemfile
+  blockinfile:
+    dest: "{{ vm_shared_folder }}/{{ app_folder }}/Gemfile"
+    block: |
+      gem 'sinatra', require: false
+      gem 'slim'
+      gem 'sidekiq'
