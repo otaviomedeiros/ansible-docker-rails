@@ -3,9 +3,7 @@
   become: yes
   roles:
     - { role: setup, tags: ['setup'] }
-    - { role: docker, tags: ['docker'] }
-    - { role: docker-compose, tags: ['docker'] }
-
+    
     - { role: bootstrap-new-rails-app, tags: ['new-rails-app', 'bootstrap'] }
     - { role: webserver, tags: ['webserver', 'bootstrap'] }
     - { role: app-server, tags: ['app-server', 'bootstrap'] }
