@@ -3,8 +3,8 @@ rails_version: 4.2.6
 app_folder: railsapp
 
 db_name: railsappdb
-db_user: railsappuser
-db_password: railsapppassword
+db_user: postgres
+db_password: 
 
 app_server_socket_folder: /var/run/app-socket
 app_server_socket: unix:///var/run/app-socket/rails-app.sock
