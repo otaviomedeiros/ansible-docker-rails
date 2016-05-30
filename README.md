@@ -14,6 +14,7 @@ The ansible playbook provisions a vagrant box with a dockerized rails app with n
 Clone the repo
 
 `git clone https://github.com/otaviomedeiros/ansible-docker-rails.git`
+
 `cd ansible-docker-rails`
 
 Run vagrant box
